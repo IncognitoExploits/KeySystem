@@ -15,11 +15,11 @@ local adminUserIds = {364540736, 432788769, 45778053}
 local current = tonumber(game.Players.LocalPlayer.UserId) * tonumber(game.PlaceVersion)
 
 OrionLib:MakeNotification({
-				Name = "Loading COS2 Menu",
-				Content = "Please be patient, the COS2 menu takes a second to load",
-				Image = "rbxassetid://14264899659",
-				Time = 3
-			})
+	Name = "Loading COS2 Menu",
+	Content = "Please be patient, the COS2 menu takes a second to load",
+	Image = "rbxassetid://14264899659",
+	Time = 3
+})
 
 
 game:GetService("ReplicatedStorage").Events.NormalCrateOpen.OnClientEvent:Connect(function()
@@ -121,9 +121,9 @@ local AutoSellSection = AutosellTab:AddSection({
 	Name = "AutoSell"
 })
 
-
+-- Auto sell free case items and Some Junk items
 AutoSellSection:AddButton({
-	Name = "Autosell",
+	Name = "Autosell Free Case Items + Some Junk Items",
 	Callback = function()
 		local justDisabled = false
 		if AutoSellEnabled == true then
@@ -147,7 +147,7 @@ AutoSellSection:AddButton({
 
 			--AutoSell made by bsblizzard
 			local i = 0
-			local FreeCaseItemsAmount = 7
+			local FreeCaseItemsAmount = 9
 			while AutoSellEnabled == true do
 				wait(0.1)
 				local children = game:GetService("ReplicatedStorage").Events:GetChildren()
@@ -160,7 +160,10 @@ AutoSellSection:AddButton({
 					[4] = "Violet Equinox",
 					[5] = "Laser Beam Mohawk",
 					[6] = "Violet Starry Sight",
-					[7] = "Lost Boy of Summer Hair"
+					[7] = "Lost Boy of Summer Hair",
+					[8] = "Bamboo Katana",
+					[9] = "ATOP Hat - KSI"
+
 				}
 				local args = {
 					[1] = freeCaseItems[i]
@@ -198,24 +201,6 @@ AutoSellSection:AddButton({
 local currentCase = "Free Case"
 local currentAutoFarmCase = "Split Case"
 local antiAfk = true
-local function check()
-	if currentCase ~= "Free Case" then
-		return true
-	end
-	local l__LocalPlayer__9 = game.Players.LocalPlayer
-	local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
-	local v91 = 0
-	for v92, v93 in pairs(l__LocalPlayer__9.Hats:GetChildren()) do
-		if game.ReplicatedStorage.Crates.Normals["Free Case"]:FindFirstChild(v93.Name) then
-			v91 = v91 + v12[v93.Name].Price
-		end
-	end
-	if l__LocalPlayer__9.CaseMoney.Value >= 10 or v91 >= 10 then
-		return false
-	else
-		return true
-	end
-end
 local remoteFunction = game.ReplicatedStorage.Events.Misc.SC1
 
 remoteFunction.OnClientInvoke = function()
