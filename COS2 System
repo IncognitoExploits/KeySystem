@@ -327,59 +327,6 @@ local AutoCaseBattleSection = CaseBattlesTab:AddSection({
 	Name = "Auto Case Battle"
 })
 
-
-
-local player = ""
-
-local player = game.Players.LocalPlayer.Name
-
-
-local AutoCallBot = false
-AutoCaseBattleSection:AddButton({
-	Name = "Auto Call Bot",
-	Callback = function()
-
-		if AutoCallBot == false then
-			AutoCallBot = true
-
-
-			OrionLib:MakeNotification({
-				Name = "Auto Bot Notification",
-				Content = "Auto Call Bot Enabled",
-				Image = "rbxassetid://14264899659",
-				Time = 5
-			})
-
-
-		else
-			AutoCallBot = false	
-
-
-			OrionLib:MakeNotification({
-				Name = "Auto Bot Notification",
-				Content = "Auto Call Bot Disabled",
-				Image = "rbxassetid://14264899659",
-				Time = 5
-			})
-
-
-		end
-		if game.Players.LocalPlayer.CaseMoney.Value >= 10 then
-			while AutoCallBot == true do
-				print(AutoCallBot)
-				wait(1)
-				local args = {
-					[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
-				}
-
-				game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
-			end
-		end
-		
-	end    
-})
-
-
 local AutoCaseBattling = false
 local JustStartedAutoOpening = false
 local RemoteEventsInEvents = game:GetService("ReplicatedStorage").Events:GetChildren()
@@ -424,6 +371,25 @@ AutoCaseBattleSection:AddButton({
 					print(RemoteEventsInEvents.Name)
 					if i == 13 then
 						game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
+						
+						wait(5)
+						
+						local AutoCallBot = true
+
+						local player = ""
+
+						local player = game.Players.LocalPlayer.Name
+
+						if AutoCallBot == true then
+							print(AutoCallBot)
+							wait(1)
+							local args = {
+								[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
+							}
+
+							game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
+						end
+						
 						break
 					end
 				end
