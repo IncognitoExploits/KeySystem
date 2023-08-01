@@ -364,21 +364,20 @@ AutoCaseBattleSection:AddButton({
 
 
 		end
-		while AutoCallBot == true do
-			print(AutoCallBot)
-			wait(1)
-			local args = {
-				[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
-			}
+		if game.Players.LocalPlayer.CaseMoney.Value >= 10 then
+			while AutoCallBot == true do
+				print(AutoCallBot)
+				wait(1)
+				local args = {
+					[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
+				}
 
-			game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
+				game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
+			end
 		end
+		
 	end    
 })
-
-
-print(player)
-
 
 
 local AutoCaseBattling = false
