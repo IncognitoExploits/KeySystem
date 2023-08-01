@@ -8,7 +8,19 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
 end)
 
 -- Vars --
-local gameCodes = {"750Likes"}
+
+
+local player = ""
+
+
+
+
+
+
+local player = game.Players.LocalPlayer.Name
+
+
+local gameCodes = {"5000Likes"}
 
 local adminUserIds = {364540736, 432788769, 45778053}
 
@@ -72,7 +84,7 @@ game.Players.PlayerAdded:Connect(function(player)
 		OrionLib:MakeNotification({
 			Name = "Admin Alert!",
 			Content = player.Name .. " Admin has joined the game!",
-			Image = "rbxassetid://4483345998",
+			Image = "rbxassetid://14264899659",
 			Time = 5
 		})
 
@@ -238,7 +250,7 @@ AutoFarmer:AddDropdown({
 		OrionLib:MakeNotification({
 			Name = "Auto Farm Case",
 			Content = "Set " .. crateName .. " as Auto Farm Case",
-			Image = "rbxassetid://4483345998",
+			Image = "rbxassetid://14264899659",
 			Time = 5
 		})
 		currentAutoFarmCase = crateName
@@ -257,7 +269,7 @@ AutoFarmer:AddToggle({
 			OrionLib:MakeNotification({
 				Name = "Auto Case",
 				Content = "Succesfully Enabled Auto Farm Case",
-				Image = "rbxassetid://4483345998",
+				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
 			while wait(8.5) and autoFarmCase do
@@ -277,10 +289,181 @@ AutoFarmer:AddToggle({
 			OrionLib:MakeNotification({
 				Name = "Auto Farm Case",
 				Content = "Succesfully Disabled Auto Farm Case",
-				Image = "rbxassetid://4483345998",
+				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
 		end
 	end,
 })
---Auto Farm Tab End
+
+-- Case Battles Tab
+local CaseToCreateBattleWith = ""
+local PlayersToCreateBattleWith = 2
+
+
+local CaseBattlesTab = COS2Window:MakeTab({
+	Name = "CaseBattles",
+	Icon = "rbxassetid://14264899659",
+	PremiumOnly = false
+})
+
+
+local HowToUseCaseBattlesTab = CaseBattlesTab:AddSection({
+	Name = "Case Battle Settings"
+})
+
+HowToUseCaseBattlesTab:AddParagraph("How to use?","Type in the name of the case you want to auto case battle in the text box. When you want to change what case your doing, you need to MAKE SURE YOU TURN OFF Auto call bot and Auto case battle or else it wont work :)")
+
+
+local CaseBattlesSettings = CaseBattlesTab:AddSection({
+	Name = "Case Battle Settings"
+})
+
+CaseBattlesSettings:AddTextbox({
+	Name = "Input Case Type",
+	Default = "Input Case Type",
+	TextDisappear = false,
+	Callback = function(Value)
+		CaseToCreateBattleWith = Value
+	end	  
+})
+
+
+
+local AutoCaseBattleSection = CaseBattlesTab:AddSection({
+	Name = "Auto Case Battle"
+})
+
+local AutoCallBot = false
+AutoCaseBattleSection:AddButton({
+	Name = "Auto Call Bot",
+	Callback = function()
+		
+		if AutoCallBot == false then
+			AutoCallBot = true
+			
+			
+			OrionLib:MakeNotification({
+				Name = "Auto Bot Notification",
+				Content = "Auto Call Bot Enabled",
+				Image = "rbxassetid://14264899659",
+				Time = 5
+			})
+			
+			
+		else
+			AutoCallBot = false	
+			
+			
+			OrionLib:MakeNotification({
+				Name = "Auto Bot Notification",
+				Content = "Auto Call Bot Disabled",
+				Image = "rbxassetid://14264899659",
+				Time = 5
+			})
+			
+			
+		end
+		print(AutoCallBot)
+		while AutoCallBot == true do
+			wait(1)
+			local args = {
+				[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
+			}
+
+			game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
+		end
+	end    
+})
+
+
+print(player)
+
+
+
+local AutoCaseBattling = false
+local JustStartedAutoOpening = false
+local RemoteEventsInEvents = game:GetService("ReplicatedStorage").Events:GetChildren()
+AutoCaseBattleSection:AddButton({
+	Name = "Start Auto Farming Case Battles",
+	Callback = function()
+		if(AutoCaseBattling == true) then
+			AutoCaseBattling = false
+			
+			OrionLib:MakeNotification({
+				Name = "Auto Case Battle Notification",
+				Content = "Auto Case Battle is Disabled",
+				Image = "rbxassetid://14264899686",
+				Time = 5
+			})
+			
+			
+		else
+			AutoCaseBattling = true
+			
+			OrionLib:MakeNotification({
+				Name = "Auto Case Battle Notification",
+				Content = "Auto Case Battle is Enabled",
+				Image = "rbxassetid://14264899686",
+				Time = 5
+			})	
+			print(CaseToCreateBattleWith)
+			local args = {
+				[1] = CaseToCreateBattleWith,
+				[2] = 2
+			}
+			
+
+			while AutoCaseBattling == true do
+				wait(8)
+				local i = 0
+				for i, RemoteEventsInEvents in pairs(RemoteEventsInEvents) do
+					
+						
+						i = i + 1
+					print(i)
+					print(RemoteEventsInEvents.Name)
+					if i == 13 then
+						game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
+						break
+					end
+				end
+			end
+		end		
+	end    
+})
+-- 					if RemoteEventsInEvents:IsA("RemoteEvent") then
+local CreateCaseBattleSection = CaseBattlesTab:AddSection({
+	Name = "Create Case Battle"
+})
+
+CreateCaseBattleSection:AddButton({
+	Name = "Create Case Battle",
+	Callback = function()
+		AutoCaseBattling = true
+
+		OrionLib:MakeNotification({
+			Name = "Case Battle",
+			Content = "Creating Case Battle",
+			Image = "rbxassetid://14264899686",
+			Time = 5
+		})	
+		print(CaseToCreateBattleWith)
+		local args = {
+			[1] = CaseToCreateBattleWith,
+			[2] = 2
+		}
+			local i = 0
+			for i, RemoteEventsInEvents in pairs(RemoteEventsInEvents) do
+
+
+				i = i + 1
+				print(i)
+				print(RemoteEventsInEvents.Name)
+				if i == 13 then
+					game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
+					break
+				end
+			end
+		end 
+})
