@@ -10,14 +10,7 @@ end)
 -- Vars --
 
 
-local player = ""
 
-
-
-
-
-
-local player = game.Players.LocalPlayer.Name
 
 
 local gameCodes = {"5000Likes"}
@@ -334,38 +327,45 @@ local AutoCaseBattleSection = CaseBattlesTab:AddSection({
 	Name = "Auto Case Battle"
 })
 
+
+
+local player = ""
+
+local player = game.Players.LocalPlayer.Name
+
+
 local AutoCallBot = false
 AutoCaseBattleSection:AddButton({
 	Name = "Auto Call Bot",
 	Callback = function()
-		
+
 		if AutoCallBot == false then
 			AutoCallBot = true
-			
-			
+
+
 			OrionLib:MakeNotification({
 				Name = "Auto Bot Notification",
 				Content = "Auto Call Bot Enabled",
 				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
-			
-			
+
+
 		else
 			AutoCallBot = false	
-			
-			
+
+
 			OrionLib:MakeNotification({
 				Name = "Auto Bot Notification",
 				Content = "Auto Call Bot Disabled",
 				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
-			
-			
+
+
 		end
-		print(AutoCallBot)
 		while AutoCallBot == true do
+			print(AutoCallBot)
 			wait(1)
 			local args = {
 				[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
@@ -389,18 +389,18 @@ AutoCaseBattleSection:AddButton({
 	Callback = function()
 		if(AutoCaseBattling == true) then
 			AutoCaseBattling = false
-			
+
 			OrionLib:MakeNotification({
 				Name = "Auto Case Battle Notification",
 				Content = "Auto Case Battle is Disabled",
 				Image = "rbxassetid://14264899686",
 				Time = 5
 			})
-			
-			
+
+
 		else
 			AutoCaseBattling = true
-			
+
 			OrionLib:MakeNotification({
 				Name = "Auto Case Battle Notification",
 				Content = "Auto Case Battle is Enabled",
@@ -412,15 +412,15 @@ AutoCaseBattleSection:AddButton({
 				[1] = CaseToCreateBattleWith,
 				[2] = 2
 			}
-			
+
 
 			while AutoCaseBattling == true do
 				wait(8)
 				local i = 0
 				for i, RemoteEventsInEvents in pairs(RemoteEventsInEvents) do
-					
-						
-						i = i + 1
+
+
+					i = i + 1
 					print(i)
 					print(RemoteEventsInEvents.Name)
 					if i == 13 then
@@ -453,17 +453,17 @@ CreateCaseBattleSection:AddButton({
 			[1] = CaseToCreateBattleWith,
 			[2] = 2
 		}
-			local i = 0
-			for i, RemoteEventsInEvents in pairs(RemoteEventsInEvents) do
+		local i = 0
+		for i, RemoteEventsInEvents in pairs(RemoteEventsInEvents) do
 
 
-				i = i + 1
-				print(i)
-				print(RemoteEventsInEvents.Name)
-				if i == 13 then
-					game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
-					break
-				end
+			i = i + 1
+			print(i)
+			print(RemoteEventsInEvents.Name)
+			if i == 13 then
+				game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
+				break
 			end
-		end 
+		end
+	end 
 })
