@@ -162,7 +162,7 @@ AutoSellSection:AddButton({
 					[6] = "Violet Starry Sight",
 					[7] = "Lost Boy of Summer Hair",
 					[8] = "Bamboo Katana",
-					[9] = "ATOP Hat - KSI"
+					[9] = "AOTP Hat - KSI"
 
 				}
 				local args = {
