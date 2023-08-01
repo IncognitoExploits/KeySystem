@@ -235,7 +235,7 @@ local currentAutoFarmCase = "Split Case"
 AutoFarmer:AddDropdown({
 	Name = "Case",
 	Default = "Split Case ($8.65)",
-	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)" , "Abstract Case ($4.45)"},
+	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)" , "Abstract Case ($4.45)" , "Free Case ($69.420)"},
 	Save = true,
 	Flag = "AutofarmCase",
 	Callback = function(Value)
@@ -383,6 +383,7 @@ AutoCaseBattleSection:AddButton({
 						if AutoCallBot == true then
 							print(AutoCallBot)
 							wait(1)
+							
 							local args = {
 								[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
 							}
