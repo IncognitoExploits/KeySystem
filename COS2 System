@@ -369,34 +369,34 @@ AutoCaseBattleSection:AddButton({
 					i = i + 1
 					print(i)
 					print(RemoteEventsInEvents.Name)
-						if i == 13 then
-							game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
+					if i == 13 then
+						game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
 
-							wait(5)
+						wait(5)
 
-							local AutoCallBot = true
+						local AutoCallBot = true
 
-							local player = ""
+						local player = ""
 
-							local player = game.Players.LocalPlayer.Name
+						local player = game.Players.LocalPlayer.Name
 
-							if AutoCallBot == true then
-								print(AutoCallBot)
-								wait(1)
-								local args = {
-									[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
-								}
+						if AutoCallBot == true then
+							print(AutoCallBot)
+							wait(1)
+							local args = {
+								[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
+							}
 
-								game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
-							end
+							game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
 						end
-
-						break
 					end
+
+					break
 				end
-			end		
-		end    
-	})
+			end
+		end		
+	end    
+})
 -- 					if RemoteEventsInEvents:IsA("RemoteEvent") then
 local CreateCaseBattleSection = CaseBattlesTab:AddSection({
 	Name = "Create Case Battle"
@@ -431,4 +431,279 @@ CreateCaseBattleSection:AddButton({
 			end
 		end
 	end 
+})
+
+-- Auto Case Battle End
+
+--Jackpot Tab end--
+
+local Jackpot = COS2Window:MakeTab({
+	Name = "Auto Jackpot",
+	Icon = "rbxassetid://14264899686",
+	PremiumOnly = false
+})
+
+local AutoCaseBattle = Jackpot:AddSection({
+	Name = "Auto Jackpot"
+})
+
+local autoJackpot = false
+local minChance = 0
+local waitTime = 2
+local minJackpotValue = 500
+game:GetService("ReplicatedStorage").Minigames.Jackpot.Countdown.Changed:Connect(function(newValue)
+	if autoJackpot then
+		if newValue == waitTime then
+			local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
+			local prizePool = game:GetService("ReplicatedStorage").Minigames.Jackpot.PrizePool:GetChildren()
+			local biggestValue = 0
+			local biggestItemName = ""
+			local backpack = game.Players.LocalPlayer.Hats
+			if backpack then
+				local children2 = backpack:GetChildren()
+				for _, item in ipairs(children2) do
+					local itemName = item.Name
+					local itemPrice = v12[itemName].Price
+					if itemPrice > biggestValue then
+						biggestValue = itemPrice
+						biggestItemName = itemName
+					end
+				end
+			end
+
+			local eventName
+			for _, remote in pairs(game:GetService("ReplicatedStorage").Events.Minigames.Jackpot:GetChildren()) do
+				if string.match(remote.Name, "%b{}") then
+					eventName = remote.Name
+					break
+				end
+			end
+
+			if not eventName then
+				return
+			end
+			local totalValue = 0
+			for _, child in ipairs(prizePool) do
+				totalValue = totalValue + v12[child.Name].Price
+			end
+
+			local chance = totalValue == 0 and 0 or (tonumber(biggestValue) / tonumber(totalValue)) * 100
+			if biggestValue > 0 and tonumber(chance) > minChance and totalValue > minJackpotValue then
+				game:GetService("ReplicatedStorage").Events.Minigames.Jackpot[eventName]:FireServer(biggestItemName)
+				OrionLib:MakeNotification({
+					Name = "Auto Jackpot",
+					Content = "Joined a $" .. totalValue .. " Jackpot with a " .. chance .. "% using a $" .. biggestValue.. " item",
+					Image = "rbxassetid://14264899686",
+					Time = 5
+				})
+			end
+		end
+	end
+end)
+
+AutoCaseBattle:AddToggle({
+	Name = "Enable Jackpot Joiner",
+	Default = false,
+	Callback = function(Value)
+		if Value then
+			autoJackpot = true
+			OrionLib:MakeNotification({
+				Name = "Auto Jackpot",
+				Content = "Succesfully enabled Auto Jackpot",
+				Image = "rbxassetid://14264899686",
+				Time = 5
+			})
+		else
+			autoJackpot = false
+			OrionLib:MakeNotification({
+				Name = "Auto Jackpot",
+				Content = "Succesfully disabled Auto Jackpot",
+				Image = "rbxassetid://14264899686",
+				Time = 5
+			})
+		end
+	end
+})
+
+AutoCaseBattle:AddSlider({
+	Name = "Jackpot Min Chance",
+	Min = 1,
+	Max = 99,
+	Default = 60,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "%",
+	Save = true,
+	Flag = "JackpotMinChance",
+	Callback = function(Value)
+		minChance = tonumber(Value)
+	end    
+})
+
+AutoCaseBattle:AddSlider({
+	Name = "Jackpot Min Value",
+	Min = 1,
+	Max = 5000,
+	Default = 500,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "$",
+	Save = true,
+	Flag = "JackpotMinValue",
+	Callback = function(Value)
+		minJackpotValue = tonumber(Value)
+	end    
+})
+
+AutoCaseBattle:AddSlider({
+	Name = "Jackpot Join At",
+	Min = 3,
+	Max = 20,
+	Default = 3,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Second",
+	Save = true,
+	Flag = "JackpotJoinAt",
+	Callback = function(Value)
+		waitTime = Value
+	end    
+})
+
+--Jackpot Tab end--
+
+
+
+
+
+--Misc Tab
+
+local MiscTab = COS2Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://14264899686",
+	PremiumOnly = false
+})
+
+local MiscSection = MiscTab:AddSection({
+	Name = "Misc"
+})
+
+local moneyToSet = 0
+MiscSection:AddTextbox({
+	Name = "Input Money to Add",
+	Default = "Input Money",
+	TextDisappear = false,
+	Callback = function(Value)
+		moneyToSet = Value
+	end	  
+})
+
+
+MiscSection:AddButton({
+	Name = "Change Money!",
+	Callback = function()
+		game.Players.LocalPlayer.CaseMoney.Value = moneyToSet
+	end    
+})
+
+local servdropdown = MiscSection:AddDropdown({
+	Name = "User",
+	Options = playerList,
+	Callback = function(Value)
+		local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
+		local totalValue = 0
+		local folder2 = game.Players:FindFirstChild(Value).Hats
+		local children2 = folder2:GetChildren()
+		for _, hat in ipairs(children2) do
+			local hatName = hat.Name
+			local hatPrice = v12[hatName].Price
+			totalValue = totalValue + hatPrice
+		end
+		OrionLib:MakeNotification({
+			Name = "Total value",
+			Content = Value .. " owns " .. tostring(#children2) .. " hats worth a total of $" .. tostring(totalValue),
+			Image = "rbxassetid://123456789",
+			Time = 5
+		})
+	end    
+})
+
+local richestButton = MiscSection:AddButton({
+	Name = "Get Richest Player",
+	Callback = function()
+		local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
+		local richestPlayer = nil
+		local highestValue = 0
+
+		for _, player in ipairs(game.Players:GetPlayers()) do
+			local totalValue = 0
+			local folder2 = player.Hats
+			local children2 = folder2:GetChildren()
+
+			for _, hat in ipairs(children2) do
+				local hatName = hat.Name
+				local hatPrice = v12[hatName].Price
+				totalValue = totalValue + hatPrice
+			end
+
+			if totalValue > highestValue then
+				richestPlayer = player
+				highestValue = totalValue
+			end
+		end
+
+		if richestPlayer then
+			OrionLib:MakeNotification({
+				Name = "Richest Player",
+				Content = richestPlayer.Name .. " is the richest player with a total hat value of $" .. math.floor(tonumber(highestValue)),
+				Image = "rbxassetid://123456789",
+				Time = 5
+			})
+		else
+			OrionLib:MakeNotification({
+				Name = "Richest Player",
+				Content = "No players found",
+				Image = "rbxassetid://123456789",
+				Time = 5
+			})
+		end
+	end
+})
+
+MiscSection:AddBind({
+	Name = "Calculate Inventory Value",
+	Default = Enum.KeyCode.C,
+	Callback = function()
+		local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
+		local totalValue = 0
+		local folder2 = game.Players.LocalPlayer.Hats
+		local children2 = folder2:GetChildren()
+		for _, hat in ipairs(children2) do
+			local hatName = hat.Name
+			local hatPrice = v12[hatName].Price
+			totalValue = totalValue + hatPrice
+		end
+
+		OrionLib:MakeNotification({
+			Name = "Total value",
+			Content = "You own " .. tostring(#children2) .. " hats worth a total of $" .. tostring(totalValue),
+			Image = "rbxassetid://123456789",
+			Time = 5
+		})
+	end    
+})
+
+MiscSection:AddButton({
+	Name = "Claim all Codes!",
+	Callback = function()
+		for i, item in ipairs(gameCodes) do
+			game:GetService("ReplicatedStorage").Events.Misc.ClaimCode:InvokeServer(item)
+		end
+		OrionLib:MakeNotification({
+			Name = "codes",
+			Content =  "Succesfully claimed every code",
+			Image = "rbxassetid://123456789",
+			Time = 5
+		})
+	end    
 })
