@@ -235,7 +235,7 @@ local currentAutoFarmCase = "Split Case"
 AutoFarmer:AddDropdown({
 	Name = "Case",
 	Default = "Split Case ($8.65)",
-	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)", "Void Case ($4.19)" , "Abstract Case ($4.45)" , "10% Fedora Case ($10.88)" , "Shutdown Case ($7935)"},
+	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)", "Abstract Case ($4.45)" , "Shutdown Case ($7935)"},
 	Save = true,
 	Flag = "AutofarmCase",
 	Callback = function(Value)
@@ -359,7 +359,7 @@ AutoCaseBattleSection:AddButton({
 				[2] = 2
 			}
 
-			
+
 			while AutoCaseBattling == true do
 				wait(8)
 				local i = 0
@@ -370,16 +370,16 @@ AutoCaseBattleSection:AddButton({
 					print(i)
 					print(RemoteEventsInEvents.Name)
 					if game.Players.LocalPlayer.CaseMoney.Value >= 10 then
-					if i == 13 then
-						game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
-						
-						wait(5)
-						
-						local AutoCallBot = true
+						if i == 13 then
+							game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
 
-						local player = ""
+							wait(5)
 
-						local player = game.Players.LocalPlayer.Name
+							local AutoCallBot = true
+
+							local player = ""
+
+							local player = game.Players.LocalPlayer.Name
 
 							if AutoCallBot == true then
 								print(AutoCallBot)
@@ -391,7 +391,7 @@ AutoCaseBattleSection:AddButton({
 								game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
 							end
 						end
-						
+
 						break
 					end
 				end
