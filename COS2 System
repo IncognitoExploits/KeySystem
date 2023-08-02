@@ -360,20 +360,6 @@ AutoCaseBattleSection:AddButton({
 			}
 
 			
-			if AutoCaseBattling == true then
-				while wait(8.5) and autoFarmCase do
-					if check() then
-						local args = { 
-							[1] = "Free Case",
-							[2] = current
-						}
-
-						game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(unpack(args))
-					else
-						game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(currentAutoFarmCase, current)
-					end
-				end
-			end
 			while AutoCaseBattling == true do
 				wait(8)
 				local i = 0
