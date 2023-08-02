@@ -235,7 +235,7 @@ local currentAutoFarmCase = "Split Case"
 AutoFarmer:AddDropdown({
 	Name = "Case",
 	Default = "Split Case ($8.65)",
-	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)", "Abstract Case ($4.45)" , "Shutdown Case ($7935)"},
+	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Shutdown Case Case ($7935)", "Abstract Case ($4.45)" , "Shutdown Case ($7935)"},
 	Save = true,
 	Flag = "AutofarmCase",
 	Callback = function(Value)
@@ -305,7 +305,7 @@ local HowToUseCaseBattlesTab = CaseBattlesTab:AddSection({
 	Name = "Case Battle Settings"
 })
 
-HowToUseCaseBattlesTab:AddParagraph("How to use?","Type in the name of the case you want to auto case battle in the text box. When you want to change what case your doing, you need to MAKE SURE YOU TURN OFF Auto call bot and Auto case battle or else it wont work :)")
+HowToUseCaseBattlesTab:AddParagraph("How to use?","Type in the name of the case you want to auto case battle in the text box. When you want to change what case your doing, you need to MAKE SURE YOU TURN OFF Auto call bot and Auto case battle or else it wont work :)																		Auto Case Battle is Currently Patched. Will be fixed soon")
 
 
 local CaseBattlesSettings = CaseBattlesTab:AddSection({
@@ -369,7 +369,6 @@ AutoCaseBattleSection:AddButton({
 					i = i + 1
 					print(i)
 					print(RemoteEventsInEvents.Name)
-					if game.Players.LocalPlayer.CaseMoney.Value >= 10 then
 						if i == 13 then
 							game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
 
@@ -395,10 +394,9 @@ AutoCaseBattleSection:AddButton({
 						break
 					end
 				end
-			end
-		end		
-	end    
-})
+			end		
+		end    
+	})
 -- 					if RemoteEventsInEvents:IsA("RemoteEvent") then
 local CreateCaseBattleSection = CaseBattlesTab:AddSection({
 	Name = "Create Case Battle"
