@@ -369,6 +369,7 @@ AutoCaseBattleSection:AddButton({
 					i = i + 1
 					print(i)
 					print(RemoteEventsInEvents.Name)
+					if game.Players.LocalPlayer.CaseMoney.Value >= 10 then
 					if i == 13 then
 						game:GetService("ReplicatedStorage").Events[RemoteEventsInEvents.Name]:FireServer(unpack(args))
 						
@@ -380,15 +381,15 @@ AutoCaseBattleSection:AddButton({
 
 						local player = game.Players.LocalPlayer.Name
 
-						if AutoCallBot == true then
-							print(AutoCallBot)
-							wait(1)
-							
-							local args = {
-								[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
-							}
+							if AutoCallBot == true then
+								print(AutoCallBot)
+								wait(1)
+								local args = {
+									[1] = game:GetService("ReplicatedStorage").Minigames.CasesBattles.BattlesList[player]
+								}
 
-							game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
+								game:GetService("ReplicatedStorage").Events.Minigames.CaseBattles.CallBot:InvokeServer(unpack(args))
+							end
 						end
 						
 						break
