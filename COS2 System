@@ -235,7 +235,7 @@ local currentAutoFarmCase = "Split Case"
 AutoFarmer:AddDropdown({
 	Name = "Case",
 	Default = "Split Case ($8.65)",
-	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)", "Void Case ($4.19)" , "Abstract Case ($4.45)" , "10% Fedora Case ($10.88)"},
+	Options = {"Forcefield Case ($6.88)", "Split Case ($8.65)", "Budget 10% Case ($9.88)" , "5% Fedora Case ($5.20)" , "Risk Case ($9.12)" , "Void Case ($4.19)", "Void Case ($4.19)" , "Abstract Case ($4.45)" , "10% Fedora Case ($10.88)" , "Shutdown Case ($7935)"},
 	Save = true,
 	Flag = "AutofarmCase",
 	Callback = function(Value)
