@@ -13,6 +13,7 @@ end)
 
 
 
+
 local gameCodes = {"5000Likes"}
 
 local adminUserIds = {364540736, 432788769, 45778053}
@@ -115,7 +116,7 @@ WelcomeTab:AddParagraph("Credits","Credits: bsblizzard")
 
 --Auto Sell
 local AutoSellEnabled = false
-
+local TimeInBetweenAutoSell = math.random(1, 1.5)
 local AutosellTab = COS2Window:MakeTab({
 	Name = "AutoSell",
 	Icon = "rbxassetid://14264899659",
@@ -154,7 +155,7 @@ AutoSellSection:AddButton({
 			local i = 0
 			local FreeCaseItemsAmount = 9
 			while AutoSellEnabled == true do
-				wait(0.1)
+				wait(TimeInBetweenAutoSell)
 				local children = game:GetService("ReplicatedStorage").Events:GetChildren()
 
 				i = i + 1
@@ -250,7 +251,7 @@ AutoFarmer:AddDropdown({
 	end
 })
 
-
+local TimeInBetweenCaseOpen = math.random(8.5, 12)
 local autoFarmCase = false
 AutoFarmer:AddToggle({
 
@@ -265,7 +266,7 @@ AutoFarmer:AddToggle({
 				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
-			while wait(8.5) and autoFarmCase do
+			while wait(TimeInBetweenCaseOpen) and autoFarmCase do
 				if check() then
 					local args = {
 						[1] = "Free Case",
