@@ -1,6 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 		game:HttpGet('https://BustlingIndolentRectangles.rfrrgf.repl.co/executed')
-		loadstring(game:HttpGet("hhttps://raw.githubusercontent.com/IncognitoExploits/KeySystem/main/Compart%236",true))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/IncognitoExploits/KeySystem/main/Compart%236",true))()
 		OrionLib:MakeNotification({
 			Name = "Key System",
 			Content = "Key System Loaded",
