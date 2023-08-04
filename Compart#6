@@ -1,0 +1,2 @@
+local key = "131513sda131jfjhj123j1Day"
+game:GetService("ReplicatedStorage").Minigames.Jackpot.JackpotCap.Value = key
