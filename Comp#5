@@ -74,7 +74,7 @@ KeySection:AddButton({
 				Image = "rbxassetid://14264899659",
 				Time = 3
 			})
-			loadstring(game:HttpGet(('hhttps://raw.githubusercontent.com/IncognitoExploits/KeySystem/main/COS2%20System')))()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/IncognitoExploits/KeySystem/main/COS2%20System')))() 
  
 		end
 		if keyInput ~= key then
