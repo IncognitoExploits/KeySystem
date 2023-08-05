@@ -172,7 +172,9 @@ AutoSellSection:AddButton({
 
 				}
 				local args = {
-					[1] = freeCaseItems[i]
+					[1] = freeCaseItems[i],
+					[2] = 2258
+					
 				}
 				if i >= FreeCaseItemsAmount then
 					i = 0
