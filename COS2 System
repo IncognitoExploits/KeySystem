@@ -77,7 +77,7 @@ function check200()
 			v91 = v91 + v12[v93.Name].Price
 		end
 	end
-	if l__LocalPlayer__9.CaseMoney.Value >= 10 or v91 >= 148.37 then
+	if l__LocalPlayer__9.CaseMoney.Value >= 10 or v91 >= 200 then
 		return false
 	else
 		return true
@@ -232,6 +232,7 @@ local antiAfk = true
 local remoteFunction = game.ReplicatedStorage.Events.Misc.SC1
 
 remoteFunction.OnClientInvoke = function()
+	wait(3)
 	if antiAfk then
 		game.ReplicatedStorage.Events.Misc.SC2:InvokeServer(remoteFunction[1] * 1500 * 10 - remoteFunction[2] * 2 * game.ReplicatedStorage.Minigames.Jackpot.JackpotPlayed.Value * game.PlaceVersion)
 	end
