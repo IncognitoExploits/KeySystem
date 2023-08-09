@@ -560,7 +560,7 @@ CreateCaseBattleSection:AddButton({
 
 local Jackpot = COS2Window:MakeTab({
 	Name = "Auto Jackpot",
-	Icon = "rbxassetid://14264899686",
+	Icon = "rbxassetid://14264899659",
 	PremiumOnly = false
 })
 
@@ -631,7 +631,7 @@ AutoCaseBattle:AddToggle({
 			OrionLib:MakeNotification({
 				Name = "Auto Jackpot",
 				Content = "Succesfully enabled Auto Jackpot",
-				Image = "rbxassetid://14264899686",
+				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
 		else
@@ -639,7 +639,7 @@ AutoCaseBattle:AddToggle({
 			OrionLib:MakeNotification({
 				Name = "Auto Jackpot",
 				Content = "Succesfully disabled Auto Jackpot",
-				Image = "rbxassetid://14264899686",
+				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
 		end
@@ -701,7 +701,7 @@ AutoCaseBattle:AddSlider({
 
 local MiscTab = COS2Window:MakeTab({
 	Name = "Misc",
-	Icon = "rbxassetid://14264899686",
+	Icon = "rbxassetid://14264899659",
 	PremiumOnly = false
 })
 
@@ -743,7 +743,7 @@ local servdropdown = MiscSection:AddDropdown({
 		OrionLib:MakeNotification({
 			Name = "Total value",
 			Content = Value .. " owns " .. tostring(#children2) .. " hats worth a total of $" .. tostring(totalValue),
-			Image = "rbxassetid://123456789",
+			Image = "rbxassetid://14264899659",
 			Time = 5
 		})
 	end    
@@ -777,14 +777,14 @@ local richestButton = MiscSection:AddButton({
 			OrionLib:MakeNotification({
 				Name = "Richest Player",
 				Content = richestPlayer.Name .. " is the richest player with a total hat value of $" .. math.floor(tonumber(highestValue)),
-				Image = "rbxassetid://123456789",
+				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
 		else
 			OrionLib:MakeNotification({
 				Name = "Richest Player",
 				Content = "No players found",
-				Image = "rbxassetid://123456789",
+				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
 		end
@@ -808,7 +808,7 @@ MiscSection:AddBind({
 		OrionLib:MakeNotification({
 			Name = "Total value",
 			Content = "You own " .. tostring(#children2) .. " hats worth a total of $" .. tostring(totalValue),
-			Image = "rbxassetid://123456789",
+			Image = "rbxassetid://14264899659",
 			Time = 5
 		})
 	end    
@@ -823,7 +823,7 @@ MiscSection:AddButton({
 		OrionLib:MakeNotification({
 			Name = "codes",
 			Content =  "Succesfully claimed every code",
-			Image = "rbxassetid://123456789",
+			Image = "rbxassetid://14264899659",
 			Time = 5
 		})
 	end    
