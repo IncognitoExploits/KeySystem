@@ -64,6 +64,26 @@ function check()
 	end
 end
 
+
+function check200()
+	if currentCase ~= "Free Case" then
+		return true
+	end
+	local l__LocalPlayer__9 = game.Players.LocalPlayer
+	local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
+	local v91 = 0
+	for v92, v93 in pairs(l__LocalPlayer__9.Hats:GetChildren()) do
+		if game.ReplicatedStorage.Crates.Normals["Free Case"]:FindFirstChild(v93.Name) then
+			v91 = v91 + v12[v93.Name].Price
+		end
+	end
+	if l__LocalPlayer__9.CaseMoney.Value >= 10 or v91 >= 200 then
+		return false
+	else
+		return true
+	end
+end
+
 local function isPlayerAdmin(player)
 	for _, adminUserId in ipairs(adminUserIds) do
 		if player.UserId == adminUserId then
@@ -174,7 +194,7 @@ AutoSellSection:AddButton({
 				local args = {
 					[1] = freeCaseItems[i],
 					[2] = 2258
-					
+
 				}
 				if i >= FreeCaseItemsAmount then
 					i = 0
@@ -232,6 +252,7 @@ local AutoFarmer = AutoFarm:AddSection({
 
 
 AutoFarmInfo:AddParagraph("How to use","Select the drop down and click what case you want to autofarm. Make sure not to click any cases(You can do case battles tho) while autofarm is active or else the game whill kick you. Dm bsblizzard on discord if you want a different case to be added to the dropdown menu")
+AutoFarmInfo:AddParagraph("WARNING!!!","This auto farming method is CURRENTLY DETECTED. Please use the updated auto farm")
 
 
 local currentAutoFarmCase = "Split Case"
@@ -291,6 +312,103 @@ AutoFarmer:AddToggle({
 		end
 	end,
 })
+
+--AutoFarm End
+
+--Updated Auto Farm
+
+-- AutoFarm made by bsblizzard
+local currentCase = "Free Case"
+local currentAutoFarmCase = "Skeleton Case"
+local antiAfk = true
+local remoteFunction = game.ReplicatedStorage.Events.Misc.SC1
+
+remoteFunction.OnClientInvoke = function()
+	if antiAfk then
+		game.ReplicatedStorage.Events.Misc.SC2:InvokeServer(remoteFunction[1] * 1500 * 10 - remoteFunction[2] * 2 * game.ReplicatedStorage.Minigames.Jackpot.JackpotPlayed.Value * game.PlaceVersion)
+	end
+end
+local UpdatedAutoFarm = COS2Window:MakeTab({
+	Name = "Updated Auto Farm",
+	Icon = "rbxassetid://14264899659",
+	PremiumOnly = false
+})
+
+local UpdatedAutoFarmInfo = UpdatedAutoFarm:AddSection({
+	Name = "Updated Auto Farm Info"
+})
+
+local UpdatedAutoFarmer = UpdatedAutoFarm:AddSection({
+	Name = "Updated Auto Farm"
+})
+
+
+UpdatedAutoFarmInfo:AddParagraph("How to use","Select the drop down and click what case you want to autofarm. Make sure not to click any cases(You can do case battles tho) while autofarm is active or else the game whill kick you. Dm bsblizzard on discord if you want a different case to be added to the dropdown menu")
+UpdatedAutoFarmInfo:AddParagraph("Updated AutoFarm","Once you get to $200 It will open the case you choose")
+
+
+local currentAutoFarmCase = "Skeleton Case"
+UpdatedAutoFarmer:AddDropdown({
+	Name = "Case",
+	Default = "Skeleton Case ($116.57)",
+	Options = {"Skeleton Case ($116.57)", "Phoenix Case ($148.37)", "Supernova Case ($92.35)" , "The Forge Case ($95.95)" },
+	Save = true,
+	Flag = "AutofarmCase",
+	Callback = function(Value)
+		local crateName = string.match(Value, "^(.*) %(")
+		OrionLib:MakeNotification({
+			Name = "Auto Farm Case",
+			Content = "Set " .. crateName .. " as Auto Farm Case",
+			Image = "rbxassetid://14264899659",
+			Time = 5
+		})
+		currentAutoFarmCase = crateName
+	end
+})
+
+local TimeInBetweenCaseOpen = math.random(8.5, 12)
+local autoFarmCase = false
+UpdatedAutoFarmer:AddToggle({
+
+	Name = "Enabled",
+	Default = false,
+	Callback = function(Value)
+		if Value then
+			autoFarmCase = true
+			OrionLib:MakeNotification({
+				Name = "Auto Case",
+				Content = "Succesfully Enabled Auto Farm Case",
+				Image = "rbxassetid://14264899659",
+				Time = 5
+			})
+			while wait(TimeInBetweenCaseOpen) and autoFarmCase do
+				if(check200() == false) then 
+					game:GetService("ReplicatedStorage").Events.SellDoubles:InvokeServer()
+				end
+				if check200() then
+					local args = {
+						[1] = "Free Case",
+						[2] = current
+					}
+
+					game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(unpack(args))
+				else
+					game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(currentAutoFarmCase, current)
+				end
+			end
+		else
+			autoFarmCase = false
+			OrionLib:MakeNotification({
+				Name = "Auto Farm Case",
+				Content = "Succesfully Disabled Auto Farm Case",
+				Image = "rbxassetid://14264899659",
+				Time = 5
+			})
+		end
+	end,
+})
+
+--Updated Auto Farm End
 
 -- Case Battles Tab
 local CaseToCreateBattleWith = ""
