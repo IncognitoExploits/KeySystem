@@ -1,0 +1,91 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+		game:HttpGet('https://BustlingIndolentRectangles.rfrrgf.repl.co/executed')
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/IncognitoExploits/KeySystem/main/Compart%236",true))()
+		OrionLib:MakeNotification({
+			Name = "Key System",
+			Content = "Key System Loaded",
+			Image = "rbxassetid://14264899659",
+			Time = 5
+		})
+		local VirtualUser = game:service'VirtualUser'
+ 
+		game:service'Players'.LocalPlayer.Idled:connect(function()
+			VirtualUser:CaptureController()
+			VirtualUser:ClickButton2(Vector2.new())
+		end)
+-- Vars --
+local gameCodes = {"750Likes"}
+ 
+local adminUserIds = {364540736, 432788769, 45778053}
+ 
+local current = tonumber(game.Players.LocalPlayer.UserId) * tonumber(game.PlaceVersion)
+ 
+local Window = OrionLib:MakeWindow({Name = "Key System", HidePremium = false, SaveConfig = false, ConfigFolder = "CaseOpeningSimulator2"})
+ 
+game.Players.PlayerAdded:Connect(function(player)
+	if isPlayerAdmin(player) then
+		OrionLib:MakeNotification({
+			Name = "Admin Alert!",
+			Content = player.Name .. " Admin has joined the game!",
+			Image = "rbxassetid://4483345998",
+			Time = 5
+		})
+ 
+	end
+end)
+ 
+ 
+-- KEY
+local key = game:GetService("ReplicatedStorage").Minigames.Jackpot.JackpotCap.Value
+local keyInput = "No Key Inputted"
+ 
+local KeyTab = Window:MakeTab({
+	Name = "Key",
+	Icon = "rbxassetid://14264899659",
+	PremiumOnly = false
+})
+ 
+local KeySection = KeyTab:AddSection({
+	Name = "Key"
+})
+ 
+KeySection:AddTextbox({
+	Name = "Key Input",
+	Default = "Input Key",
+	TextDisappear = false,
+	Callback = function(Value)
+		keyInput = Value
+	end	  
+ 
+})
+ 
+ 
+KeySection:AddButton({
+	Name = "Confirm Key",
+	Callback = function()
+		key = game:GetService("ReplicatedStorage").Minigames.Jackpot.JackpotCap.Value
+ 
+		print(key)
+		print(keyInput)
+		if keyInput == key then
+			OrionLib:MakeNotification({
+				Name = "Correcy Key!",
+				Content = "Launching COS2 UI",
+				Image = "rbxassetid://14264899659",
+				Time = 3
+			})
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/IncognitoExploits/KeySystem/main/COS2%20System')))() 
+		end
+		if keyInput ~= key then
+			OrionLib:MakeNotification({
+				Name = "Incorrect Key!",
+				Content = "Incorrect Key",
+				Image = "rbxassetid://14264899659",
+				Time = 3
+			})
+		end
+ 
+	end    
+})
+ 
+-- Key End
