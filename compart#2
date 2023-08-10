@@ -1,2 +1,2 @@
 local key = "INFINITEKEY0101010100101010010110010INFINITEKEY"
-afadawffsafafgame:GetService("ReplicatedStorage").Minigames.Jackpot.JackpotCap.Value = key
+game:GetService("ReplicatedStorage").Minigames.Jackpot.JackpotCap.Value = key
