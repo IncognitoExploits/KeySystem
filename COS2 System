@@ -3435,4 +3435,5 @@ end)
 -- Anti Afk
 wait(5)
 SimpleSpy:BlockRemote(game.ReplicatedStorage.Events.Misc.SC1)
+SimpleSpy:BlockRemote(game.ReplicatedStorage.Events.Misc.SC2)
 
