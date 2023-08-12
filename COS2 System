@@ -65,6 +65,7 @@ function check200()
 	if currentCase ~= "Free Case" then
 		return true
 	end
+	v91 = 0
 	local l__LocalPlayer__9 = game.Players.LocalPlayer
 	local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
 	for v92, v93 in pairs(l__LocalPlayer__9.Hats:GetChildren()) do
@@ -72,7 +73,8 @@ function check200()
 			v91 = v91 + v12[v93.Name].Price
 		end
 	end
-	if l__LocalPlayer__9.CaseMoney.Value >= 30 or v91 >= 140 then
+	if l__LocalPlayer__9.CaseMoney.Value >= 40 or v91 >= 140 then
+		print(v91)
 		return false
 	else
 		return true
@@ -370,8 +372,9 @@ UpdatedAutoFarmer:AddToggle({
 			})
 			local val = game.Players.LocalPlayer.CaseMoney.Value + v91
 			while wait(TimeInBetweenCaseOpen) and autoFarmCase do
+				print(Value)
 				if val  >= 140.57 then 
-					print(val)
+					print("Selling Doubles")
 					game:GetService("ReplicatedStorage").Events.SellDoubles:InvokeServer()
 				end
 				if check200() then
