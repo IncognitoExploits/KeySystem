@@ -827,6 +827,8 @@ MiscSection:AddButton({
 ]]
 
 -- shuts down the previous instance of SimpleSpy
+
+wait(5)
 if _G.SimpleSpyExecuted and type(_G.SimpleSpyShutdown) == "function" then
 	print(pcall(_G.SimpleSpyShutdown))
 end
@@ -3403,8 +3405,11 @@ end, function()
 	if selected then
 		codebox:setRaw(SimpleSpy:ValueToVar(selected.ReturnValue, "returnValue"))
 	end
-	
+
 end)
 
 wait(5)
-SimpleSpy:BlockRemote(game.ReplicatedStorage.Events.Misc.SC1)
+while true do 
+	wait(2)
+	SimpleSpy:BlockRemote(game.ReplicatedStorage.Events.Misc.SC1)
+end
