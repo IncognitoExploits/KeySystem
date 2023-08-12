@@ -368,8 +368,10 @@ UpdatedAutoFarmer:AddToggle({
 				Image = "rbxassetid://14264899659",
 				Time = 5
 			})
+			local val = game.Players.LocalPlayer.CaseMoney.Value + v91
 			while wait(TimeInBetweenCaseOpen) and autoFarmCase do
-				if game.Players.LocalPlayer.CaseMoney.Value + v91 >= 140.57 then 
+				if val  >= 140.57 then 
+					print(val)
 					game:GetService("ReplicatedStorage").Events.SellDoubles:InvokeServer()
 				end
 				if check200() then
