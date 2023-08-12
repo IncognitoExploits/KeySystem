@@ -3433,7 +3433,10 @@ end, function()
 end)
 
 -- Anti Afk
-wait(5)
+while true do
+
 SimpleSpy:BlockRemote(game.ReplicatedStorage.Events.Misc.SC1)
-SimpleSpy:BlockRemote(game.ReplicatedStorage.Events.Misc.SC2)
+wait(1)
+end
+
 
