@@ -398,43 +398,45 @@ UpdatedAutoFarmer:AddToggle({
 					print("Selling Doubles")
 					game:GetService("ReplicatedStorage").Events.SellDoubles:InvokeServer()
 					local interval = 0
-						wait(4)
-						interval = interval + 1
+					wait(4)
+					interval = interval + 1
 
-						if interval >= 5 then
+					if interval >= 5 then
 
-							interval = 0
-							break
-						end
-						local i = 0
-						while true do
+						interval = 0
+						break
+					end
+					local i = 0
+					while true do
 						wait(3)
 						i = i + 1
-				local freeCaseItems = {
-					[1] = "Xtreme Monochrome Hair",
-					[2] = "Cyanime Super Star",
-					[3] = "Neon Green Equinox",
-					[4] = "Violet Equinox",
-					[5] = "Laser Beam Mohawk",
-					[6] = "Violet Starry Sight",
-					[7] = "Lost Boy of Summer Hair",
-					[8] = "Bamboo Katana",
-					[9] = "Divine Aura"
-
-						local args = {
-							[1] = freeCaseItems[i],
-							[2] = 2314
-
+						local freeCaseItems = {
+							[1] = "Xtreme Monochrome Hair",
+							[2] = "Cyanime Super Star",
+							[3] = "Neon Green Equinox",
+							[4] = "Violet Equinox",
+							[5] = "Laser Beam Mohawk",
+							[6] = "Violet Starry Sight",
+							[7] = "Lost Boy of Summer Hair",
+							[8] = "Bamboo Katana",
+							[9] = "Divine Aura"
+							
 						}
+			
+							local args = {
+								[1] = freeCaseItems[i],
+								[2] = 2314
 
-						for i, children in pairs(children) do
-							if children:IsA("RemoteFunction") then
-								if children.Name ~= "SellDoubles" then
-									game:GetService("ReplicatedStorage").Events[children.Name]:InvokeServer(unpack(args))
-									break
+							}
+
+							for i, children in pairs(children) do
+								if children:IsA("RemoteFunction") then
+									if children.Name ~= "SellDoubles" then
+										game:GetService("ReplicatedStorage").Events[children.Name]:InvokeServer(unpack(args))
+										break
+									end
 								end
 							end
-						end
 					end
 				end
 				if checkSkeleton() then
