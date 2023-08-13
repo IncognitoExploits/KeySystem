@@ -421,8 +421,8 @@ UpdatedAutoFarmer:AddToggle({
 							[8] = "Bamboo Katana",
 							[9] = "Divine Aura"
 							
-						}
-			
+							}
+
 							local args = {
 								[1] = freeCaseItems[i],
 								[2] = 2314
