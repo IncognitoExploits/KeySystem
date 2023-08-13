@@ -81,6 +81,26 @@ function check200()
 	end
 end
 
+function checkSkeleton()
+	if currentCase ~= "Free Case" then
+		return true
+	end
+	v91 = 0
+	local l__LocalPlayer__9 = game.Players.LocalPlayer
+	local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
+	for v92, v93 in pairs(l__LocalPlayer__9.Hats:GetChildren()) do
+		if game.ReplicatedStorage.Crates.Normals["Free Case"]:FindFirstChild(v93.Name) then
+			v91 = v91 + v12[v93.Name].Price
+		end
+	end
+	if l__LocalPlayer__9.CaseMoney.Value + v91 >= 116.57 then
+		print(v91)
+		return true
+	else
+		return false
+	end
+end
+
 local function isPlayerAdmin(player)
 	for _, adminUserId in ipairs(adminUserIds) do
 		if player.UserId == adminUserId then
@@ -192,7 +212,7 @@ AutoSellSection:AddButton({
 				}
 				local args = {
 					[1] = freeCaseItems[i],
-					[2] = 2258
+					[2] = 2314
 
 				}
 				if i >= FreeCaseItemsAmount then
@@ -372,12 +392,46 @@ UpdatedAutoFarmer:AddToggle({
 			})
 			local val = game.Players.LocalPlayer.CaseMoney.Value + v91
 			while wait(TimeInBetweenCaseOpen) and autoFarmCase do
+				local children = game:GetService("ReplicatedStorage").Events:GetChildren()
 				print(Value)
-				if val  >= 140.57 then 
+				if checkSkeleton() then 
 					print("Selling Doubles")
 					game:GetService("ReplicatedStorage").Events.SellDoubles:InvokeServer()
+					local interval = 0
+						wait(4)
+						interval = interval + 1
+
+						if interval >= 5 then
+
+							interval = 0
+							break
+						end
+
+						local freeCaseItems = {
+							[1] = "Divine Aura"
+
+						}
+						local args = {
+							[1] = freeCaseItems[1],
+							[2] = 2314
+
+						}
+
+						for i, children in pairs(children) do
+							if children:IsA("RemoteFunction") then
+								if children.Name ~= "SellDoubles" then
+									game:GetService("ReplicatedStorage").Events[children.Name]:InvokeServer(unpack(args))
+									break
+								end
+							end
+						end
+					end
+				if checkSkeleton() then
+					wait(8.5)
+					game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(currentAutoFarmCase, current)
+
 				end
-				if check200() then
+				if checkSkeleton() == false then
 
 					local args = {
 						[1] = "Free Case",
@@ -385,11 +439,6 @@ UpdatedAutoFarmer:AddToggle({
 					}
 
 					game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(unpack(args))
-					if game.Players.LocalPlayer.CaseMoney.Value >= 116.57 then
-						wait(8.5)
-						game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(currentAutoFarmCase, current)
-
-					end
 				end
 			end
 		end
