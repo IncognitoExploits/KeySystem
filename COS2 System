@@ -406,13 +406,23 @@ UpdatedAutoFarmer:AddToggle({
 							interval = 0
 							break
 						end
+						local i = 0
+						while true do
+						wait(3)
+						i = i + 1
+				local freeCaseItems = {
+					[1] = "Xtreme Monochrome Hair",
+					[2] = "Cyanime Super Star",
+					[3] = "Neon Green Equinox",
+					[4] = "Violet Equinox",
+					[5] = "Laser Beam Mohawk",
+					[6] = "Violet Starry Sight",
+					[7] = "Lost Boy of Summer Hair",
+					[8] = "Bamboo Katana",
+					[9] = "Divine Aura"
 
-						local freeCaseItems = {
-							[1] = "Divine Aura"
-
-						}
 						local args = {
-							[1] = freeCaseItems[1],
+							[1] = freeCaseItems[i],
 							[2] = 2314
 
 						}
@@ -426,6 +436,7 @@ UpdatedAutoFarmer:AddToggle({
 							end
 						end
 					end
+				end
 				if checkSkeleton() then
 					wait(8.5)
 					game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(currentAutoFarmCase, current)
