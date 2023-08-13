@@ -54,7 +54,7 @@ function check()
 			v91 = v91 + v12[v93.Name].Price
 		end
 	end
-	if l__LocalPlayer__9.CaseMoney.Value >= 30 or v91 >= 200 then
+	if l__LocalPlayer__9.CaseMoney.Value >= 30 or v91 >= 116.57 then
 		return false
 	else
 		return true
@@ -65,6 +65,7 @@ function check200()
 	if currentCase ~= "Free Case" then
 		return true
 	end
+	v91 = 0
 	local l__LocalPlayer__9 = game.Players.LocalPlayer
 	local v12 = game.ReplicatedStorage.Events.GetIndex:InvokeServer()
 	for v92, v93 in pairs(l__LocalPlayer__9.Hats:GetChildren()) do
@@ -72,12 +73,14 @@ function check200()
 			v91 = v91 + v12[v93.Name].Price
 		end
 	end
-	if l__LocalPlayer__9.CaseMoney.Value >= 40 or v91 >= 140 then
+	if l__LocalPlayer__9.CaseMoney.Value >= 40 or v91 >= 116.57 then
+		print(v91)
 		return false
 	else
 		return true
 	end
 end
+
 function checkSkeleton()
 	if currentCase ~= "Free Case" then
 		return true
@@ -209,7 +212,7 @@ AutoSellSection:AddButton({
 				}
 				local args = {
 					[1] = freeCaseItems[i],
-					[2] = 2258
+					[2] = 2314
 
 				}
 				if i >= FreeCaseItemsAmount then
@@ -354,6 +357,26 @@ UpdatedAutoFarmInfo:AddParagraph("Updated AutoFarm","Once you get to $116.57 in 
 
 local currentAutoFarmCase = "Skeleton Case"
 local secondAutofarmCase = "5% Periastron Case"
+UpdatedAutoFarmer:AddDropdown({
+	Name = "Case",
+	Default = "Skeleton Case ($116.57)",
+	Options = {"Skeleton Case ($116.57)"},
+	Save = true,
+	Flag = "AutofarmCase",
+	Callback = function(Value)
+		local crateName = string.match(Value, "^(.*) %(")
+		OrionLib:MakeNotification({
+			Name = "Auto Farm Case",
+			Content = "Set " .. crateName .. " as Auto Farm Case",
+			Image = "rbxassetid://14264899659",
+			Time = 5
+		})
+		currentAutoFarmCase = crateName
+	end
+})
+
+local TimeInBetweenCaseOpen = math.random(8.5, 9)
+local autoFarmCase = false
 UpdatedAutoFarmer:AddToggle({
 
 	Name = "Enabled",
@@ -397,29 +420,25 @@ UpdatedAutoFarmer:AddToggle({
 							[7] = "Lost Boy of Summer Hair",
 							[8] = "Bamboo Katana",
 							[9] = "Divine Aura"
+							
+							}
 
-						}
+							local args = {
+								[1] = freeCaseItems[i],
+								[2] = 2314
 
-						local args = {
-							[1] = freeCaseItems[i],
-							[2] = 2314
+							}
 
-						}
-
-						for i, children in pairs(children) do
-							if children:IsA("RemoteFunction") then
-								if children.Name ~= "SellDoubles" then
-									game:GetService("ReplicatedStorage").Events[children.Name]:InvokeServer(unpack(args))
-									break
+							for i, children in pairs(children) do
+								if children:IsA("RemoteFunction") then
+									if children.Name ~= "SellDoubles" then
+										game:GetService("ReplicatedStorage").Events[children.Name]:InvokeServer(unpack(args))
+										break
+									end
 								end
 							end
-						end
 					end
-				end
-				if checkSkeleton() then
-					wait(8.5)
 					game:GetService("ReplicatedStorage").Events.NormalCrateOpen:FireServer(currentAutoFarmCase, current)
-
 				end
 				if checkSkeleton() == false then
 
